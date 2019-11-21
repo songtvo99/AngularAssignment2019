@@ -1,0 +1,11 @@
+<mat-toolbar color="primary" class="app-header" >
+  <span><h3>{{ title }}</h3></span>
+  <span class="full-expander">&nbsp;</span>
+  <span class="header-bar" >
+    <a mat-button routerLink="login" routerLinkActive="mat-flat-button">Log in</a>
+    <a mat-button routerLink="book-store" routerLinkActive="mat-flat-button">Book Store</a>
+    <a mat-button routerLink="cart" routerLinkActive="mat-flat-button">
+      <mat-icon matBadge={{displayNumber}} matBadgeColor="warn">shopping_cart</mat-icon>
+    </a>
+  </span>
+</mat-toolbar>

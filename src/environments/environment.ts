@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  API_GATEWAY: 'https://learn-angular-2019.firebaseio.com'
 };
 
 /*

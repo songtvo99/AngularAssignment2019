@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonService } from './services/common.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'tapcorp-assignment';
+
+  public title = 'tapcorp-assignment';
+  public isProcessing = false;
+
+  constructor(private commonService: CommonService) {}
+
+
 }
