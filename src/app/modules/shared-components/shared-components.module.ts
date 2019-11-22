@@ -5,7 +5,7 @@ import { PageNotFoundComponent } from '@components/page-not-found/page-not-found
 import { MaterialModule } from '@modules/material/material.module';
 import { RouterContainerComponent } from '@components/router-container/router-container.component';
 import { RouterModule } from '@angular/router';
-import { AppListItemComponent } from '../../components/app-list-item/app-list-item.component';
+import { AppListItemComponent } from '@components/app-list-item/app-list-item.component';
 
 @NgModule({
   declarations: [HeaderComponent, PageNotFoundComponent, RouterContainerComponent, AppListItemComponent],
