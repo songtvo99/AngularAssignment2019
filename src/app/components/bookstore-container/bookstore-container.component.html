@@ -1,0 +1,17 @@
+<h1 mat-title>Books Store</h1>
+<h3 mat-caption *ngIf=" currentState === 'LIST_VIEW'" >Total Books: 0</h3>
+<app-book-list
+  [books]="books$"
+  (onAddCart)="onAddCartItem($event)"
+  (onViewDetail)="viewDetailBookById($event)"
+  *ngIf=" currentState === 'LIST_VIEW'"
+>
+</app-book-list>
+
+<app-book-detail
+  *ngIf=" currentState === 'DETAIL_VIEW'"
+  [book]="selectedBook"
+  (onBackToList)="onBackToList()"
+  >
+
+</app-book-detail>

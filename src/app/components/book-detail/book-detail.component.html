@@ -1,5 +1,4 @@
 <p>book-detail works!</p>
-
-{{ (selectedBook$ | async) | json }}
-
+{{ selectedBook | json }}
+<br/>
 <button mat-flat-button color="primary" (click)="backToBookStore()" >Back to list</button>

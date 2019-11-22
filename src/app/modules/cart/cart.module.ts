@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 // app modules
 import { CartRoutingModule } from '@modules/cart/cart-routing.module';
-import { UiToolbarModule } from '@modules/ui-toolbar/ui-toolbar.module';
+import { SharedComponentsModule } from '@modules/shared-components/shared-components.module';
 
 // app components
 import { CartListComponent } from '@components/cart-list/cart-list.component';
@@ -13,7 +13,7 @@ import { CartListComponent } from '@components/cart-list/cart-list.component';
   imports: [
     CommonModule,
     CartRoutingModule,
-    UiToolbarModule
+    SharedComponentsModule
   ]
 })
 export class CartModule { }

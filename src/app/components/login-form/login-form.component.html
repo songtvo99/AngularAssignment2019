@@ -1,24 +1,26 @@
 <div class="form-container">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>
-        TapCorp Assignment Project
-      </mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <form class="login-form" #loginForm >
-          <mat-form-field>
-            <input matInput placeholder="Email" value=""/>
-          </mat-form-field>
-        
-          <mat-form-field>
-            <input matInput placeholder="Password" type="password"/>
-          </mat-form-field>
-      </form>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button (click)="login(loginForm)" >Login</button>
-      <button mat-button (click)="navigateToRegister()">Register</button>
-    </mat-card-actions>
-  </mat-card>
+  <div class="form-wrapper">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          TapCorp Assignment Project
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form class="login-form" #loginForm >
+            <mat-form-field>
+              <input matInput placeholder="Email" value=""/>
+            </mat-form-field>
+          
+            <mat-form-field>
+              <input matInput placeholder="Password" type="password"/>
+            </mat-form-field>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="login(loginForm)" >Login</button>
+        <button mat-button (click)="navigateToRegister()">Register</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </div>

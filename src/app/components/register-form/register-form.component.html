@@ -1,37 +1,39 @@
 <div class="form-container">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>
-        Register User Form
-      </mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <form class="login-form" #registerForm >
-          <mat-form-field>
-            <input matInput placeholder="First Name" />
-          </mat-form-field>
+  <div class="form-wrapper">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          Register User Form
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form class="register-form" #registerForm >
+            <mat-form-field>
+              <input matInput placeholder="First Name" />
+            </mat-form-field>
 
-          <mat-form-field>
-            <input matInput placeholder="Last Name" />
-          </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Last Name" />
+            </mat-form-field>
 
-          <mat-form-field>
-            <input matInput placeholder="Email" value=""/>
-          </mat-form-field>
-        
-          <mat-form-field>
-            <input matInput placeholder="Password" type="password"/>
-          </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Email" value=""/>
+            </mat-form-field>
+          
+            <mat-form-field>
+              <input matInput placeholder="Password" type="password"/>
+            </mat-form-field>
 
-          <mat-form-field>
-            <input matInput placeholder="Re-type Password" type="password"/>
-          </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Re-type Password" type="password"/>
+            </mat-form-field>
 
-      </form>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button (click)="submitToRegister(registerForm)" >Submit</button>
-      <button mat-button (click)="navigateToLogin()">Back</button>
-    </mat-card-actions>
-  </mat-card>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="submitToRegister(registerForm)" >Submit</button>
+        <button mat-button (click)="navigateToLogin()">Back</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </div>

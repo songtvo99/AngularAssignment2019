@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { UiRegisterRoutingModule } from './ui-register-routing.module';
 import { RegisterFormComponent } from '@components/register-form/register-form.component';
-import { UiToolbarModule } from '../ui-toolbar/ui-toolbar.module';
-import { MaterialModule } from '../material/material.module';
+import { MaterialModule } from '@modules/material/material.module';
+import { SharedComponentsModule } from '@modules/shared-components/shared-components.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +12,7 @@ import { MaterialModule } from '../material/material.module';
   ],
   imports: [
     CommonModule,
-    UiToolbarModule,
+    SharedComponentsModule,
     UiRegisterRoutingModule,
     MaterialModule
   ]

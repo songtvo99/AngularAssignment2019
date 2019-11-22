@@ -45,10 +45,22 @@ body {
   margin-top: 2%;
 }
 
+.form-wrapper {
+  width: 40%;
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
 }
 
 .full-screen {

@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { BookService } from '@app/services/book.service';
 import { Book } from '@app/models/book.model';
+
 
 @Component({
   selector: 'app-book-detail',
@@ -13,27 +11,17 @@ import { Book } from '@app/models/book.model';
 })
 export class BookDetailComponent implements OnInit {
 
-  public selectedBookId: string;
-  public selectedBook$: Observable<Book>;
+  @Input('book') public selectedBook: Book;
+  @Output() public  onBackToList = new EventEmitter();
 
-  constructor(
-    private activeRouter: ActivatedRoute,
-    private router: Router,
-    private bookService: BookService
-  ) {
+  constructor() {
   }
 
   ngOnInit() {
-    this.selectedBook$ = this.activeRouter.paramMap.pipe(
-      switchMap((params: ParamMap) => {
-        this.selectedBookId = params.get('id');
-        return this.bookService.getBookById(this.selectedBookId);
-      })
-    );
   }
 
   public backToBookStore() {
-    this.router.navigate(['/book-store']);
+    this.onBackToList.emit();
   }
 
 }

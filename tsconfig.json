@@ -19,9 +19,6 @@
       "dom"
     ],
     "paths": {
-      "@app/*": [
-        "src/app/*"
-      ],
       "@env/*": [
         "src/environments/*"
       ],
@@ -42,6 +39,12 @@
       ],
       "@services/*": [
         "src/app/services/*"
+      ],
+      "@events/*": [
+        "src/app/events/*"
+      ],
+      "@app/*": [
+        "src/app/*"
       ]
     }
   },

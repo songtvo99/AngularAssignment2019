@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // App Modules
-import { UiToolbarModule } from '@modules/ui-toolbar/ui-toolbar.module';
+import { SharedComponentsModule } from '@modules/shared-components/shared-components.module';
 import { UiLoginRoutingModule } from '@modules/ui-login/ui-login-routing.module';
 
 // App Components
@@ -14,7 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   declarations: [LoginFormComponent],
   imports: [
     CommonModule,
-    UiToolbarModule,
+    SharedComponentsModule,
     UiLoginRoutingModule,
     MaterialModule,
     FormsModule,

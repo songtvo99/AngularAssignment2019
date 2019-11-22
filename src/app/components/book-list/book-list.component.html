@@ -23,8 +23,8 @@
       <mat-divider></mat-divider>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-flat-button (click)="viewDetailBookById(book.id)" >View Detail</button>
-      <button mat-flat-button flexend>Add to cart</button>
+      <button mat-flat-button (click)="doViewDetail(book)">View Detail</button>
+      <button mat-flat-button flexend (click)="doAddCart(book)">Add to cart</button>
     </mat-card-actions>
   </mat-card>
 </div>
