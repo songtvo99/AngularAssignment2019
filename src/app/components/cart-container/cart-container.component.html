@@ -1,0 +1,7 @@
+<div class="page-content">
+  <app-cart-list
+    [cartItems]="cartItems$"
+    (onUpdateCartItem)="onRemoveCartItem($event)"
+    [grandTotal]="total"
+  ></app-cart-list>
+</div>

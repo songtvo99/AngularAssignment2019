@@ -1,5 +1,6 @@
 <div class="form-container">
   <div class="form-wrapper">
+    <form [formGroup]="loginForm" (ngSubmit)="login()" >
     <mat-card>
       <mat-card-header>
         <mat-card-title>
@@ -7,20 +8,27 @@
         </mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <form class="login-form" #loginForm >
+          <div class="login-form">
             <mat-form-field>
-              <input matInput placeholder="Email" value=""/>
+              <input id="email" matInput placeholder="Email" type="email" formControlName="email"/>
+              <mat-error *ngIf="loginForm.get('email').errors">
+                Please input your email
+              </mat-error>
             </mat-form-field>
           
             <mat-form-field>
-              <input matInput placeholder="Password" type="password"/>
+              <input matInput placeholder="Password" type="password" formControlName="password" />
+              <mat-error *ngIf="loginForm.get('password').errors">
+                Please input your password
+              </mat-error>
             </mat-form-field>
-        </form>
+          </div>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button (click)="login(loginForm)" >Login</button>
-        <button mat-button (click)="navigateToRegister()">Register</button>
+        <button mat-button type="submit" >Login</button>
+        <button mat-button (click)="navigateToRegister()" type="button">Register</button>
       </mat-card-actions>
     </mat-card>
+    </form>
   </div>
 </div>

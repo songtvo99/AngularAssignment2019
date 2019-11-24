@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from '@components/page-not-found/page-not-found.component';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -11,10 +10,12 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: 'src/app/modules/ui-login/ui-login.module#UiLoginModule'},
+    loadChildren: 'src/app/modules/ui-login/ui-login.module#UiLoginModule'
+  },
   {
     path: 'register',
-    loadChildren: 'src/app/modules/ui-register/ui-register.module#UiRegisterModule'
+    loadChildren:
+      'src/app/modules/ui-register/ui-register.module#UiRegisterModule'
   },
   {
     path: 'cart',
@@ -25,7 +26,8 @@ const routes: Routes = [
     loadChildren: 'src/app/modules/book-store/book-store.module#BookStoreModule'
   },
   {
-    path: '**', component: PageNotFoundComponent
+    path: '**',
+    component: PageNotFoundComponent
   }
 ];
 
@@ -33,4 +35,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

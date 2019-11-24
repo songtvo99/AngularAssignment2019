@@ -1,1 +1,61 @@
-<p>cart-list works!</p>
+<div class="container">
+  <div
+    class="card-picture-container"
+    *ngFor="let cartItem of cartItems$ | async"
+  >
+    <mat-card class="card-picture">
+      <div class="flex-row-container">
+        <mat-card-header class="flex-column flex-5-column">
+          <img mat-card-avatar [src]="cartItem.book.image" />
+          <mat-card-title>{{ cartItem.book.title }}</mat-card-title>
+          <mat-card-subtitle>title</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-header class="flex-column flex-5-column">
+          <mat-card-title>{{
+            cartItem.book.price | currency: 'USD'
+          }}</mat-card-title>
+          <mat-card-subtitle>book price</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-header class="flex-column flex-5-column">
+          <mat-card-title>{{ cartItem.bookedQuantity }}</mat-card-title>
+          <mat-card-subtitle>quantity</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-header class="flex-column flex-5-column">
+          <mat-card-title>{{
+            cartItem.lineTotal | currency: 'USD'
+          }}</mat-card-title>
+          <mat-card-subtitle>Line total</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-header class="flex-last">
+          <button
+            mat-stroked-button
+            color="accent"
+            (click)="doRemoveCartItem(cartItem)"
+          >
+            REMOVE
+          </button>
+        </mat-card-header>
+      </div>
+    </mat-card>
+  </div>
+  <div class="card-picture-container ">
+    <mat-card class="flex-95-width">
+      <mat-card-header>
+        <mat-card-title color="primary"
+          >{{ grandTotal | currency: 'USD' }}
+        </mat-card-title>
+        <mat-card-subtitle>Total</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-header>
+        <mat-card-title>{{ '0%' }} </mat-card-title>
+        <mat-card-subtitle>Discount</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-header>
+        <mat-card-title color="accent"
+          >{{ grandTotal | currency: 'USD' }}
+        </mat-card-title>
+        <mat-card-subtitle>Grand Total</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</div>

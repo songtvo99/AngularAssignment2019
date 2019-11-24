@@ -1,3 +1,4 @@
+import { MaterialModule } from '@modules/material/material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -7,13 +8,15 @@ import { SharedComponentsModule } from '@modules/shared-components/shared-compon
 
 // app components
 import { CartListComponent } from '@components/cart-list/cart-list.component';
+import { CartContainerComponent } from '../../components/cart-container/cart-container.component';
 
 @NgModule({
-  declarations: [CartListComponent],
+  declarations: [CartListComponent, CartContainerComponent],
   imports: [
     CommonModule,
     CartRoutingModule,
-    SharedComponentsModule
+    SharedComponentsModule,
+    MaterialModule
   ]
 })
 export class CartModule { }

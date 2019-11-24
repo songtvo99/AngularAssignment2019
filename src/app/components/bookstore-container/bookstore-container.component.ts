@@ -1,3 +1,4 @@
+import { AddCartItemCommand } from '@events/add-cart-item.command';
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '@services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,6 +9,7 @@ import { CartService } from '@services/cart.service';
 
 // app model
 import { PageResult } from '@models/page-result.model';
+import { BookView } from '@models/book-view.model';
 import { Book } from '@models/book.model';
 import { CartItem } from '@app/models/cart-item.model';
 
@@ -15,16 +17,14 @@ import { CartItem } from '@app/models/cart-item.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-
 @Component({
   selector: 'app-bookstore-container',
   templateUrl: './bookstore-container.component.html',
   styleUrls: ['./bookstore-container.component.scss']
 })
 export class BookstoreContainerComponent implements OnInit {
-
   public pageResult$: Observable<PageResult<Book>>;
-  public books$: Observable<Book[]>;
+  public books$: Observable<BookView[]>;
   public selectedBook: Book;
   public pageIndex = 1;
   public pageSize = 6;
@@ -35,21 +35,39 @@ export class BookstoreContainerComponent implements OnInit {
     private appRouter: Router,
     private bookStoreService: BookService,
     private cartService: CartService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.pageResult$ = this.queryBookList(this.pageIndex, this.pageSize);
-    this.books$ = this.mapToBookListFromPageResult(this.pageResult$);
+    const rawBooks$ = this.mapToBookListFromPageResult(this.pageResult$);
+    this.books$ = this.mapToBookViewFromBook(rawBooks$);
     this.currentState = 'LIST_VIEW';
   }
 
-  public queryBookList(pageIndex: number, pageSize: number): Observable<PageResult<Book>> {
+  public queryBookList(
+    pageIndex: number,
+    pageSize: number
+  ): Observable<PageResult<Book>> {
     return this.bookStoreService.getBooksByPaging(pageIndex, pageSize);
   }
 
-  public mapToBookListFromPageResult(pageResult$: Observable<PageResult<Book>>): Observable<Book[]> {
+  public mapToBookListFromPageResult(
+    pageResult$: Observable<PageResult<Book>>
+  ): Observable<Book[]> {
     return pageResult$.pipe(
       map((pageResultParam: PageResult<Book>) => pageResultParam.pagedItems)
+    );
+  }
+
+  public mapToBookViewFromBook(
+    books$: Observable<Book[]>
+  ): Observable<BookView[]> {
+    return books$.pipe(
+      map((books: Book[]) =>
+        books.map(book => {
+          return { book, isShowDetail: false } as BookView;
+        })
+      )
     );
   }
 
@@ -58,12 +76,15 @@ export class BookstoreContainerComponent implements OnInit {
     this.currentState = 'DETAIL_VIEW';
   }
 
-  public onAddCartItem(cartItem: CartItem) {
-    this.cartService.addCartItem(cartItem);
+  public onAddCartItem($command: AddCartItemCommand) {
+    this.cartService.addCartItem({
+      book: $command.book,
+      bookedQuantity: $command.bookedQuantity
+    } as CartItem);
+    this.cartService.updateCart();
   }
 
   public onBackToList() {
     this.currentState = 'LIST_VIEW';
   }
-
 }

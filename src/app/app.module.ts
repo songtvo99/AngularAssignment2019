@@ -13,9 +13,7 @@ import { AppComponent } from '@app/app.component';
 import { SharedComponentsModule } from './modules/shared-components/shared-components.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -28,4 +26,4 @@ import { SharedComponentsModule } from './modules/shared-components/shared-compo
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

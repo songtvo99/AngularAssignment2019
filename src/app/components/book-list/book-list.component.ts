@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Book } from '@models/book.model';
+
+import { BookView } from '@models/book-view.model';
 
 import { Observable } from 'rxjs';
 import { AddCartItemCommand } from '@events/add-cart-item.command';
@@ -10,22 +11,32 @@ import { AddCartItemCommand } from '@events/add-cart-item.command';
   styleUrls: ['./book-list.component.scss']
 })
 export class BookListComponent implements OnInit {
-
-  @Input('books') public books$: Observable<Book[]>;
+  @Input('books') public books$: Observable<BookView[]>;
   @Output('onAddCart') addCartHandler = new EventEmitter<AddCartItemCommand>();
-  @Output('onViewDetail') viewDetailHandler = new EventEmitter<Book>();
 
-  constructor() { }
+  currentBookViewExpando: BookView;
 
-  ngOnInit() {
+  constructor() {}
+
+  ngOnInit() {}
+
+  public doAddCart($event: MouseEvent, bookView: BookView) {
+    $event.stopPropagation();
+    const { book } = bookView;
+    this.addCartHandler.emit({ book, bookedQuantity: 1 } as AddCartItemCommand);
   }
 
-  public doAddCart(book: Book) {
-    this.addCartHandler.emit({book, bookedQty: 1} as AddCartItemCommand);
-  }
+  public doViewDetail(bookView: BookView) {
+    bookView.isShowDetail = !bookView.isShowDetail;
 
-  public doViewDetail(book: Book) {
-    this.viewDetailHandler.emit(book);
-  }
+    if (this.currentBookViewExpando) {
+      this.currentBookViewExpando.isShowDetail = false;
+    }
 
+    if (bookView.isShowDetail) {
+      this.currentBookViewExpando = bookView;
+    } else {
+      this.currentBookViewExpando = null;
+    }
+  }
 }

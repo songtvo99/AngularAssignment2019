@@ -1,20 +1,31 @@
-<mat-toolbar color="primary" class="app-header" >
-  <span><h3>{{ title }}</h3></span>
+<mat-toolbar color="primary" class="app-header">
+  <span>
+    <a mat-button routerLink="login" routerLinkActive="mat-flat-button"
+      ><h3>{{ title }}</h3></a
+    >
+  </span>
   <span class="full-expander">&nbsp;</span>
-  <span class="header-bar" >
-    <a mat-button routerLink="login" routerLinkActive="mat-flat-button">Log in</a>
-    <a mat-button routerLink="book-store" routerLinkActive="mat-flat-button">Book Store</a>
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-        <mat-icon>account_circle</mat-icon>
+  <span class="header-bar">
+    <a mat-button routerLink="book-store" routerLinkActive="mat-flat-button"
+      >Book Store</a
+    >
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="Example icon-button with a menu"
+    >
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>chevron_left</mat-icon>
+        <span>Log out</span>
       </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-          <mat-icon>chevron_left</mat-icon>
-          <span>Log out</span>
-        </button>
-      </mat-menu>
+    </mat-menu>
     <a mat-button routerLink="cart" routerLinkActive="mat-flat-button">
-      <mat-icon matBadge={{displayNumber}} matBadgeColor="warn">shopping_cart</mat-icon>
+      <mat-icon matBadge="{{ displayNumber }}" matBadgeColor="warn"
+        >shopping_cart</mat-icon
+      >
     </a>
   </span>
 </mat-toolbar>

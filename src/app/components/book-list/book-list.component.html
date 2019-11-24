@@ -1,34 +1,41 @@
 <div class="container">
-  <mat-card class="card-picture" *ngFor="let book of books$ | async" color="accent">
-    <mat-card-header>
-      <mat-card-title>
-        <span title>{{book.title}}</span>
-      </mat-card-title> 
-    </mat-card-header>
-    <img mat-card-image [src]="book.image" class="img">
-    <mat-card-content caption>
-      <p>
-        Price: {{book.price | currency: 'USD'}}
-      </p>
-      <mat-divider></mat-divider>
-      <p>
-          Qty: {{ book.quantity }}
-      </p>
-      <mat-divider></mat-divider>
-      <p>
-        {{book.category}}
-      </p>
-      <mat-divider></mat-divider>
-      <p>{{book.description}}</p>
-      <mat-divider></mat-divider>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-flat-button (click)="doViewDetail(book)">View Detail</button>
-      <button mat-flat-button flexend (click)="doAddCart(book)">Add to cart</button>
-    </mat-card-actions>
-  </mat-card>
-</div>
-<mat-paginator [length]="100"
-              [pageSize]="10"
-              [pageSizeOptions]="[5, 10, 25, 100]">
+  <div class="card-picture-container" *ngFor="let bookView of books$ | async">
+    <mat-card class="card-picture">
+      <div class="flex-row-container" (click)="doViewDetail(bookView)">
+        <mat-card-header class="flex-column">
+          <img mat-card-avatar [src]="bookView.book.image" />
+          <mat-card-title>{{ bookView.book.title }}</mat-card-title>
+          <mat-card-subtitle>title</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-header class="flex-column">
+          <mat-card-title>{{
+            bookView.book.price | currency: "USD"
+          }}</mat-card-title>
+          <mat-card-subtitle>book price</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-header class="flex-column">
+          <mat-card-title>{{ bookView.book.category }}</mat-card-title>
+          <mat-card-subtitle>Category</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-header class="flex-last">
+          <button
+            mat-stroked-button
+            color="accent"
+            (click)="doAddCart($event, bookView)"
+          >
+            ADD TO CART
+          </button>
+        </mat-card-header>
+      </div>
+    </mat-card>
+    <mat-card class="card-picture" *ngIf="bookView.isShowDetail"
+      >{{ bookView.book | json }}
+    </mat-card>
+  </div>
+  <mat-paginator
+    [length]="100"
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+  >
   </mat-paginator>
+</div>
