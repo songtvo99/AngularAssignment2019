@@ -9,8 +9,8 @@ import { OrderDetail } from '@models/order-detail.model';
 
 import { CommonService } from '@services/common.service';
 
-import { Observable, BehaviorSubject } from 'rxjs';
-import { reduce, flatMap, map } from 'rxjs/operators';
+import { Observable, BehaviorSubject, of, forkJoin } from 'rxjs';
+import { last, mergeMap, scan, reduce } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -128,8 +128,8 @@ export class CartService {
 
   public calculateSumTotal(): Observable<number> {
     return this.cartItems$.pipe(
-      flatMap((items: CartItem[]) => items.map(item => item.lineTotal)),
-      reduce((total, lineTotal: number) => total + lineTotal, 0)
+      mergeMap((items: CartItem[]) => items.map(item => item.lineTotal)),
+      scan((sum, lineTotal) => sum + lineTotal, 0)
     );
   }
 

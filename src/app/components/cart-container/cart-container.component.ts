@@ -4,7 +4,7 @@ import { CartService } from '@services/cart.service';
 import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cart-container',
@@ -13,19 +13,19 @@ import { map } from 'rxjs/operators';
 })
 export class CartContainerComponent implements OnInit {
   public cartItems$: Observable<CartItem[]>;
-  public total: Observable<number>;
+  public total$: Observable<number>;
 
   constructor(private cartService: CartService) {}
 
   ngOnInit() {
     this.cartItems$ = this.cartService.getCartItems();
-    this.total = this.cartService.calculateSumTotal();
+    this.total$ = this.cartService.calculateSumTotal();
   }
 
   public onRemoveCartItem(command: RemoveCartItem) {
     this.cartService.removeCartItem(command.cartItem);
     this.cartItems$ = this.removeInView(command.cartItem);
-    this.total = this.cartService.calculateSumTotal();
+    this.total$ = this.cartService.calculateSumTotal().pipe(first());
     this.cartService.updateCart();
   }
 

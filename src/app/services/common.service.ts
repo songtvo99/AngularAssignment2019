@@ -1,10 +1,14 @@
 import { HttpParams } from '@angular/common/http';
-import { AppConstant } from '../constants/app.constant';
-import { Injectable } from '@angular/core';
+import { AppConstant } from '@constants/app.constant';
+import { EventEmitter, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({ providedIn: 'root' })
 export class CommonService {
+  public onChangeStateProgressSpinner: EventEmitter<
+    boolean
+  > = new EventEmitter();
+
   constructor(private snackBar: MatSnackBar) {}
 
   public saveLocalSessionValue(key: string, value: any): boolean {
@@ -60,5 +64,9 @@ export class CommonService {
     const params = new HttpParams();
     Object.keys(data).forEach(key => params.set(key, data[key]));
     return params;
+  }
+
+  public toggleProgressSpinner(isShow: boolean) {
+    this.onChangeStateProgressSpinner.emit(isShow);
   }
 }
