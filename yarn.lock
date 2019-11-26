@@ -177,6 +177,10 @@
   dependencies:
     tslib "^1.9.0"
 
+"@angular/fire@^5.2.3":
+  version "5.2.3"
+  resolved "https://registry.yarnpkg.com/@angular/fire/-/fire-5.2.3.tgz#a4be89ef7684f0af41a430ba41436f99e9178f68"
+
 "@angular/flex-layout@^8.0.0-beta.27":
   version "8.0.0-beta.27"
   resolved "https://registry.yarnpkg.com/@angular/flex-layout/-/flex-layout-8.0.0-beta.27.tgz#a697d5a90e6d04c06b02ee872f88f384d1723f7c"

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // app modules
 import { BookStoreRoutingModule } from '@modules/book-store/book-store-routing.module';
@@ -12,7 +13,6 @@ import { BookDetailComponent } from '@components/book-detail/book-detail.compone
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BookstoreContainerComponent } from '@components/bookstore-container/bookstore-container.component';
 
-
 @NgModule({
   declarations: [
     BookListComponent,
@@ -23,8 +23,9 @@ import { BookstoreContainerComponent } from '@components/bookstore-container/boo
     CommonModule,
     BookStoreRoutingModule,
     SharedComponentsModule,
+    ReactiveFormsModule,
     FlexLayoutModule,
     MaterialModule
   ]
 })
-export class BookStoreModule { }
+export class BookStoreModule {}

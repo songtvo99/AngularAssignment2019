@@ -1,6 +1,6 @@
-import { CommonService } from '@services/common.service';
+import { RoutingUrl } from '@constants/url-routing.constant';
+import { AuthenticationService } from '@services/authentication.service';
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '@app/services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import {
   FormBuilder,
@@ -8,6 +8,8 @@ import {
   Validators,
   FormControl
 } from '@angular/forms';
+
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login-form',
@@ -20,8 +22,7 @@ export class LoginFormComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private commonService: CommonService,
-    private userService: UserService,
+    private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder
   ) {}
 
@@ -42,13 +43,18 @@ export class LoginFormComponent implements OnInit {
         email: this.loginForm.get('email').value,
         password: this.loginForm.get('password').value
       };
-      console.log('loginModel:', loginModel);
+
+      this.authenticationService
+        .login(loginModel)
+        .pipe(first())
+        .subscribe(data => this.router.navigate['/bookstore']);
     } else {
-      console.log('error');
+      return;
     }
   }
 
   public navigateToRegister() {
-    this.router.navigate(['../register'], { relativeTo: this.route });
+    const registerUrl = RoutingUrl.registerUrl();
+    this.router.navigate([registerUrl], { relativeTo: this.route });
   }
 }

@@ -1,17 +1,26 @@
-<h1 mat-title>Books Store</h1>
-<h3 mat-caption *ngIf=" currentState === 'LIST_VIEW'" >Total Books: 0</h3>
-<app-book-list
-  [books]="books$"
-  (onAddCart)="onAddCartItem($event)"
-  (onViewDetail)="viewDetailBookById($event)"
-  *ngIf=" currentState === 'LIST_VIEW'"
->
-</app-book-list>
+<div class="flex-colum-container">
+  <h1 mat-title>Books Store</h1>
+  <p mat-caption *ngIf="currentState === 'BOOK_LIST_VIEW'">Total Books: 0</p>
 
-<app-book-detail
-  *ngIf=" currentState === 'DETAIL_VIEW'"
-  [book]="selectedBook"
-  (onBackToList)="onBackToList()"
+  <div class="card-picture" *ngIf="canAddBook">
+    <button mat-stroked-button color="accent" (click)="onAddNewBook()">
+      Add new book
+    </button>
+  </div>
+
+  <app-book-list
+    [books]="books$"
+    (onAddCart)="onAddCartItem($event)"
+    (onViewDetail)="viewDetailBookById($event)"
+    *ngIf="currentState === 'LIST_VIEW'"
   >
+  </app-book-list>
 
-</app-book-detail>
+  <app-book-detail
+    *ngIf="currentState === 'BOOK_DETAIL_VIEW'"
+    [book]="selectedBook"
+    (onBackToList)="onBackToList()"
+    (onSaveBook)="onSaveBook($event)"
+  >
+  </app-book-detail>
+</div>

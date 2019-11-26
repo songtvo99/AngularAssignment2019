@@ -1,22 +1,17 @@
+import { HttpParams } from '@angular/common/http';
+import { AppConstant } from '../constants/app.constant';
 import { Injectable } from '@angular/core';
-import { environment } from '@env/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class CommonService {
-
-  private TOKEN_STORAGE_KEY = 'token_storage_key';
-
-  constructor(private snackBar: MatSnackBar) { }
-
-  public buildUrl(url): string {
-    const { API_GATEWAY } = environment;
-    return `${API_GATEWAY}/${url}`;
-  }
+  constructor(private snackBar: MatSnackBar) {}
 
   public saveLocalSessionValue(key: string, value: any): boolean {
-    window.sessionStorage.setItem(this.TOKEN_STORAGE_KEY, JSON.stringify(value));
+    window.sessionStorage.setItem(
+      AppConstant.SESSION_STORAGE_USER_KEY,
+      JSON.stringify(value)
+    );
     return true;
   }
 
@@ -29,12 +24,14 @@ export class CommonService {
   }
 
   public removeLocalSessionValue(key: string): boolean {
-    window.sessionStorage.removeItem(this.TOKEN_STORAGE_KEY);
-    return !!window.sessionStorage.getItem(this.TOKEN_STORAGE_KEY);
+    window.sessionStorage.removeItem(AppConstant.SESSION_STORAGE_TOKEN_KEY);
+    return !!window.sessionStorage.getItem(
+      AppConstant.SESSION_STORAGE_TOKEN_KEY
+    );
   }
 
   public getLoginUser() {
-    window.sessionStorage.getItem(this.TOKEN_STORAGE_KEY);
+    window.sessionStorage.getItem(AppConstant.SESSION_STORAGE_TOKEN_KEY);
   }
 
   // handle error
@@ -52,10 +49,16 @@ export class CommonService {
   }
 
   public showError(errorMessage) {
-    if ( errorMessage && errorMessage !== '' ) {
+    if (errorMessage && errorMessage !== '') {
       this.snackBar.open(errorMessage, 'Error', {
-        duration: 5000,
+        duration: 5000
       });
     }
+  }
+
+  public mapObjectToHttpParams(data: any): HttpParams {
+    const params = new HttpParams();
+    Object.keys(data).forEach(key => params.set(key, data[key]));
+    return params;
   }
 }

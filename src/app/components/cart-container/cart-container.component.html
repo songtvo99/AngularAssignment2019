@@ -2,6 +2,6 @@
   <app-cart-list
     [cartItems]="cartItems$"
     (onUpdateCartItem)="onRemoveCartItem($event)"
-    [grandTotal]="total"
+    [grandTotal]="total | async"
   ></app-cart-list>
 </div>

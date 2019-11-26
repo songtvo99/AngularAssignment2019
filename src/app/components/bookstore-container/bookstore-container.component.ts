@@ -1,3 +1,5 @@
+import { AppConstant } from '@constants/app.constant';
+import { PageRequest } from './../../models/page-request.model';
 import { AddCartItemCommand } from '@events/add-cart-item.command';
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '@services/common.service';
@@ -29,10 +31,9 @@ export class BookstoreContainerComponent implements OnInit {
   public pageIndex = 1;
   public pageSize = 6;
   public currentState: string;
+  public canAddBook: boolean;
 
   constructor(
-    private bookStoreActivatedRoute: ActivatedRoute,
-    private appRouter: Router,
     private bookStoreService: BookService,
     private cartService: CartService
   ) {}
@@ -41,14 +42,18 @@ export class BookstoreContainerComponent implements OnInit {
     this.pageResult$ = this.queryBookList(this.pageIndex, this.pageSize);
     const rawBooks$ = this.mapToBookListFromPageResult(this.pageResult$);
     this.books$ = this.mapToBookViewFromBook(rawBooks$);
-    this.currentState = 'LIST_VIEW';
+    this.currentState = AppConstant.BOOK_LIST_VIEW;
+    this.canAddBook = true;
   }
 
   public queryBookList(
     pageIndex: number,
     pageSize: number
   ): Observable<PageResult<Book>> {
-    return this.bookStoreService.getBooksByPaging(pageIndex, pageSize);
+    return this.bookStoreService.getBooksByPaging({
+      pageIndex,
+      pageSize
+    } as PageRequest);
   }
 
   public mapToBookListFromPageResult(
@@ -73,7 +78,7 @@ export class BookstoreContainerComponent implements OnInit {
 
   public viewDetailBookById(book: Book) {
     this.selectedBook = book;
-    this.currentState = 'DETAIL_VIEW';
+    this.currentState = AppConstant.BOOK_DETAIL_VIEW;
   }
 
   public onAddCartItem($command: AddCartItemCommand) {
@@ -85,6 +90,14 @@ export class BookstoreContainerComponent implements OnInit {
   }
 
   public onBackToList() {
-    this.currentState = 'LIST_VIEW';
+    this.currentState = AppConstant.BOOK_LIST_VIEW;
+  }
+
+  public onAddNewBook() {
+    this.currentState = AppConstant.BOOK_DETAIL_VIEW;
+  }
+
+  public onSaveBook(book: Book) {
+    this.bookStoreService.addBook(book); // TODO: subscribe and handle notification
   }
 }

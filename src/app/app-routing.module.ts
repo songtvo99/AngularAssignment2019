@@ -1,3 +1,4 @@
+import { AuthGuard } from '@guards/auth.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from '@components/page-not-found/page-not-found.component';
@@ -19,7 +20,8 @@ const routes: Routes = [
   },
   {
     path: 'cart',
-    loadChildren: 'src/app/modules/cart/cart.module#CartModule'
+    loadChildren: 'src/app/modules/cart/cart.module#CartModule',
+    canActivate: [AuthGuard]
   },
   {
     path: 'book-store',

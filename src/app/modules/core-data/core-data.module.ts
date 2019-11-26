@@ -1,24 +1,35 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommonService } from '@services/common.service';
 import { BookService } from '@services/book.service';
-import { UserService } from '@services/user.service';
 import { CartService } from '@services/cart.service';
-import { MaterialModule } from '../material/material.module';
+import { UserService } from '@app/services/user.service';
+import { ErrorInterceptorService } from '@services/error-interceptor.service';
+import { JwtInterceptorService } from '@services/jwt-interceptor.service';
+import { AuthenticationService } from '@services/authentication.service';
+import { MaterialModule } from '@modules/material/material.module';
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    HttpClientModule
-  ],
+  imports: [CommonModule, HttpClientModule],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptorService,
+      multi: true
+    },
     CommonService,
-    BookService,
     UserService,
+    BookService,
+    AuthenticationService,
     CartService,
     MaterialModule
   ]
 })
-export class CoreDataModule { }
+export class CoreDataModule {}

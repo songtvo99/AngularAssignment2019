@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 })
 export class CartContainerComponent implements OnInit {
   public cartItems$: Observable<CartItem[]>;
-  public total: number;
+  public total: Observable<number>;
 
   constructor(private cartService: CartService) {}
 

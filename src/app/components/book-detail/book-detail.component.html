@@ -1,6 +1,107 @@
-<p>book-detail works!</p>
-{{ selectedBook | json }}
-<br />
-<button mat-flat-button color="primary" (click)="backToBookStore()">
-  Back to list
-</button>
+<div class="form-container">
+  <div class="form-wrapper">
+    <form
+      [formGroup]="bookDetailForm"
+      (ngSubmit)="onFormSubmitBook()"
+      class="login-form"
+    >
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            <h2>Book Detail Information</h2>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="login-form">
+            <mat-form-field>
+              <input
+                id="title"
+                matInput
+                placeholder="title"
+                formControlName="title"
+              />
+              <mat-error *ngIf="bookDetailForm.get('title').errors">
+                Please input book title
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-select
+                id="category"
+                matInput
+                placeholder="category"
+                formControlName="category"
+              >
+                <mat-option value="" disabled
+                  >(choose category of book)</mat-option
+                >
+                <mat-option
+                  *ngFor="let category of bookCategories"
+                  [value]="category"
+                  >{{ category }}</mat-option
+                >
+              </mat-select>
+              <mat-error *ngIf="bookDetailForm.get('category').errors">
+                Please select category of book
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <textarea
+                id="description"
+                rows="4"
+                matInput
+                placeholder="description"
+                formControlName="description"
+              ></textarea>
+              <mat-error *ngIf="bookDetailForm.get('description').errors">
+                Please input description
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input
+                type="number"
+                matInput
+                id="price"
+                placeholder="price"
+                formControlName="price"
+              />
+              <mat-error *ngIf="bookDetailForm.get('price').errors">
+                The value of price must be greater than 0
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input
+                type="number"
+                id="inStockQuantity"
+                matInput
+                placeholder="in-stock quantity"
+                formControlName="inStockQuantity"
+              />
+              <mat-error *ngIf="bookDetailForm.get('inStockQuantity').errors">
+                Please input in stock value of this book
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input
+                id="image"
+                placeholder="Image url"
+                matInput
+                formControlName="image"
+              />
+              <mat-error *ngIf="bookDetailForm.get('image').errors">
+                Please input url of image of book
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button type="submit">Submit</button>
+          <button mat-button type="reset">Clear</button>
+          <button mat-button type="button" (click)="navigateBackToList()">
+            Back to Book Store
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>
+</div>

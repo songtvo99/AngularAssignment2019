@@ -1,16 +1,33 @@
-import { Observable, of } from "rxjs";
-import { Injectable, EventEmitter } from "@angular/core";
-import { CartItem } from "@models/cart-item.model";
-import { CommonService } from "@services/common.service";
+import { Order } from '@models/order.model';
+import { AuthenticationService } from '@services/authentication.service';
+import { ServerUrl } from './../constants/url-routing.constant';
+import { HttpClient } from '@angular/common/http';
+import { AppConstant } from '@constants/app.constant';
+import { Injectable, EventEmitter } from '@angular/core';
+import { CartItem } from '@models/cart-item.model';
+import { OrderDetail } from '@models/order-detail.model';
+
+import { CommonService } from '@services/common.service';
+
+import { Observable, BehaviorSubject } from 'rxjs';
+import { reduce, flatMap, map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class CartService {
-  private cartItems: CartItem[] = [];
+  private cartItems$: BehaviorSubject<CartItem[]>;
   private displayCartEvent: EventEmitter<CartItem[]> = new EventEmitter();
 
-  constructor(private commonService: CommonService) {}
+  constructor(
+    private commonService: CommonService,
+    private authenticationService: AuthenticationService,
+    private http: HttpClient
+  ) {
+    const cartItems =
+      this.commonService.getLocalSessionValue(AppConstant.CART_ITEMS_KEY) || [];
+    this.cartItems$ = new BehaviorSubject<CartItem[]>(cartItems);
+  }
 
   public get cartEventEmitter() {
     return this.displayCartEvent;
@@ -37,27 +54,54 @@ export class CartService {
   }
 
   public updateCartEmitter() {
-    return this.displayCartEvent.emit(this.cartItems);
+    return this.displayCartEvent.emit(this.cartItems$.value);
   }
 
   public updateCart() {
-    this.displayCartEvent.emit(this.cartItems);
+    this.displayCartEvent.emit(this.cartItems$.value);
   }
 
   public removeCartItem(cartItem: CartItem) {
-    this.cartItems = this.cartItems.filter(
+    const items = this.cartItems$.value.filter(
       (item: CartItem) => item.book.id !== cartItem.book.id
     );
+    this.cartItems$.next(items);
   }
 
-  public checkoutShoppingCart() {}
+  public checkoutShoppingCart(): Observable<any> {
+    const order = this.buildOrder();
+    return this.submitOrder(order);
+  }
+
+  public submitOrder(order: Order) {
+    const checkOutUrl = ServerUrl.shopCart.checkout();
+    return this.http.post<any>(checkOutUrl, order);
+  }
+
+  public buildOrder(): Order {
+    const id = this.authenticationService.getCurrentUser().id;
+    const orderDetails = this.convertCartItemToOrderDetail(
+      this.cartItems$.value
+    );
+    const order = { userId: id, orderDetails };
+    return order as Order;
+  }
+
+  public convertCartItemToOrderDetail(cartItems: CartItem[]): OrderDetail[] {
+    return cartItems.map(item => {
+      const { id, price } = item.book;
+      const qty = item.bookedQuantity;
+      return { bookId: id, price, qty } as OrderDetail;
+    });
+  }
 
   private addExistingCartItemIntoCart(existingCartItem: CartItem, qty: number) {
     return existingCartItem.bookedQuantity + qty;
   }
 
   private addNewCartItemIntoCart(cartItem: CartItem) {
-    this.cartItems = [...this.cartItems, cartItem];
+    const items = this.cartItems$.value;
+    this.cartItems$.next([...items, cartItem]);
   }
 
   private updateExistingCartItemIntoCart(
@@ -69,7 +113,7 @@ export class CartService {
 
   private findExistingItemInCart(cartItem: CartItem) {
     const existingItems =
-      this.cartItems.filter(
+      this.cartItems$.value.filter(
         itemInCart => itemInCart.book.id === cartItem.book.id
       ) || [];
     if (existingItems.length > 0) {
@@ -82,25 +126,14 @@ export class CartService {
     return cartItem.book.price * cartItem.bookedQuantity;
   }
 
-  public calculateSumTotal(): number {
-    let sum = 0;
-    this.cartItems.forEach(
-      (cartItem: CartItem) => (sum = sum + cartItem.lineTotal)
+  public calculateSumTotal(): Observable<number> {
+    return this.cartItems$.pipe(
+      flatMap((items: CartItem[]) => items.map(item => item.lineTotal)),
+      reduce((total, lineTotal: number) => total + lineTotal, 0)
     );
-
-    return sum;
-  }
-
-  private calculateTotal() {
-    let total = 0;
-    this.cartItems.forEach((cartItem: CartItem) => {
-      total = total + cartItem.lineTotal;
-    });
-
-    return total;
   }
 
   public getCartItems(): Observable<CartItem[]> {
-    return of(this.cartItems);
+    return this.cartItems$.asObservable();
   }
 }

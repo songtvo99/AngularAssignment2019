@@ -8,16 +8,13 @@ import { RouterModule } from '@angular/router';
 import { AppListItemComponent } from '@components/app-list-item/app-list-item.component';
 
 @NgModule({
-  declarations: [HeaderComponent, PageNotFoundComponent, RouterContainerComponent, AppListItemComponent],
-  imports: [
-    CommonModule,
-    MaterialModule,
-    RouterModule
-  ],
-  exports: [
+  declarations: [
     HeaderComponent,
     PageNotFoundComponent,
-    RouterContainerComponent
-  ]
+    RouterContainerComponent,
+    AppListItemComponent
+  ],
+  imports: [CommonModule, MaterialModule, RouterModule],
+  exports: [HeaderComponent, PageNotFoundComponent, RouterContainerComponent]
 })
-export class SharedComponentsModule { }
+export class SharedComponentsModule {}

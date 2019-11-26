@@ -11,41 +11,21 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom"],
     "paths": {
-      "@env/*": [
-        "src/environments/*"
-      ],
-      "@assets/*": [
-        "src/assets/*"
-      ],
-      "@components/*": [
-        "src/app/components/*"
-      ],
-      "@directives/*": [
-        "src/app/directives/*"
-      ],
-      "@modules/*": [
-        "src/app/modules/*"
-      ],
-      "@models/*": [
-        "src/app/models/*"
-      ],
-      "@services/*": [
-        "src/app/services/*"
-      ],
-      "@events/*": [
-        "src/app/events/*"
-      ],
-      "@app/*": [
-        "src/app/*"
-      ]
+      "@env/*": ["src/environments/*"],
+      "@assets/*": ["src/assets/*"],
+      "@components/*": ["src/app/components/*"],
+      "@constants/*": ["src/app/constants/*"],
+      "@directives/*": ["src/app/directives/*"],
+      "@modules/*": ["src/app/modules/*"],
+      "@models/*": ["src/app/models/*"],
+      "@services/*": ["src/app/services/*"],
+      "@events/*": ["src/app/events/*"],
+      "@guards/*": ["src/app/guards/*"],
+      "@utils/*": ["src/app/utils/*"],
+      "@app/*": ["src/app/*"]
     }
   },
   "angularCompilerOptions": {

@@ -148,6 +148,11 @@ body {
   width: 100%;
 }
 
+.flex-column-container {
+  display: flex;
+  width: 98%;
+}
+
 @media (max-width: 500px) {
   body {
     font-size: x-small;
