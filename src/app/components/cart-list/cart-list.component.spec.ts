@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CartListComponent } from './cart-list.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('CartListComponent', () => {
   let component: CartListComponent;
@@ -8,9 +9,9 @@ describe('CartListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CartListComponent ]
-    })
-    .compileComponents();
+      declarations: [CartListComponent],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

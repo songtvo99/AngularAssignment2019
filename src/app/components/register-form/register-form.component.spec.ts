@@ -1,6 +1,14 @@
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RegisterFormComponent } from './register-form.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+
+class MockMatSnackBar {}
+class MockHttpClient {}
 
 describe('RegisterFormComponent', () => {
   let component: RegisterFormComponent;
@@ -8,9 +16,16 @@ describe('RegisterFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RegisterFormComponent ]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      declarations: [RegisterFormComponent],
+      providers: [
+        FormBuilder,
+        { provide: MatSnackBar, useClass: MockMatSnackBar },
+        { provide: MatSnackBar, useClass: MockMatSnackBar },
+        { provide: HttpClient, useClass: MockHttpClient }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -20,6 +35,6 @@ describe('RegisterFormComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component).toBeDefined();
   });
 });

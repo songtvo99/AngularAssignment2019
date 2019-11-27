@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RouterContainerComponent } from './router-container.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('RouterContainerComponent', () => {
   let component: RouterContainerComponent;
@@ -8,9 +9,9 @@ describe('RouterContainerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RouterContainerComponent ]
-    })
-    .compileComponents();
+      declarations: [RouterContainerComponent],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

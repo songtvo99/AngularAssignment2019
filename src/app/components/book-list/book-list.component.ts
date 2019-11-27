@@ -11,10 +11,10 @@ import { AddCartItemCommand } from '@events/add-cart-item.command';
   styleUrls: ['./book-list.component.scss']
 })
 export class BookListComponent implements OnInit {
-  @Input('books') public books$: Observable<BookView[]>;
-  @Output('onAddCart') addCartHandler = new EventEmitter<AddCartItemCommand>();
+  @Input() public books$: Observable<BookView[]>;
+  @Output() public addCartHandler = new EventEmitter<AddCartItemCommand>();
 
-  currentBookViewExpando: BookView;
+  currentBookViewExpander: BookView;
 
   constructor() {}
 
@@ -29,14 +29,14 @@ export class BookListComponent implements OnInit {
   public doViewDetail(bookView: BookView) {
     bookView.isShowDetail = !bookView.isShowDetail;
 
-    if (this.currentBookViewExpando) {
-      this.currentBookViewExpando.isShowDetail = false;
+    if (this.currentBookViewExpander) {
+      this.currentBookViewExpander.isShowDetail = false;
     }
 
     if (bookView.isShowDetail) {
-      this.currentBookViewExpando = bookView;
+      this.currentBookViewExpander = bookView;
     } else {
-      this.currentBookViewExpando = null;
+      this.currentBookViewExpander = null;
     }
   }
 }

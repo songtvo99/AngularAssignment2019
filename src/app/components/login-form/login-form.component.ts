@@ -48,8 +48,6 @@ export class LoginFormComponent implements OnInit {
         .login(loginModel)
         .pipe(first())
         .subscribe(data => this.router.navigate['/bookstore']);
-    } else {
-      return;
     }
   }
 

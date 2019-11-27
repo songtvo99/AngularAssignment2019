@@ -10,3 +10,21 @@ describe('BookListComponent (isolated test) ', () => {
     expect(component).toBeTruthy();
   });
 });
+
+describe('BookListComponent (shallow test) ', () => {
+  let component: BookListComponent;
+
+  it('should create', () => {
+    component = new BookListComponent();
+    expect(component).toBeTruthy();
+  });
+});
+
+describe('BookListComponent (integrated test) ', () => {
+  let component: BookListComponent;
+
+  it('should create', () => {
+    component = new BookListComponent();
+    expect(component).toBeTruthy();
+  });
+});

@@ -9,8 +9,8 @@
   </div>
 
   <app-book-list
-    [books]="books$"
-    (onAddCart)="onAddCartItem($event)"
+    [books$]="books$"
+    (addCartHandler)="onAddCartItem($event)"
     (onViewDetail)="viewDetailBookById($event)"
     *ngIf="currentState === 'BOOK_LIST_VIEW'"
   >
